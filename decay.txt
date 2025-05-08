@@ -1,0 +1,7 @@
+"unrest"
+{
+	"base"		 "base"
+	"title"		 "Unrest"
+	"maps"		 "^rp_"
+	"menusystem" "1"
+}
