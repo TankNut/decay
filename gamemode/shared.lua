@@ -2,7 +2,7 @@
 AddCSLuaFile()
 DeriveGamemode("sandbox")
 
-GM.Name   = "Unrest"
+GM.Name   = "Decay"
 GM.Author = "TankNut"
 
 local function includeClient(path)

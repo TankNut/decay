@@ -1,7 +1,7 @@
-"unrest"
+"decay"
 {
 	"base"		 "base"
-	"title"		 "Unrest"
+	"title"		 "Decay"
 	"maps"		 "^rp_"
 	"menusystem" "1"
 }
