@@ -1,14 +1,13 @@
 function GM:PlayerInitialSpawn(ply)
 	ply:SetCustomCollisionCheck(true)
-
-	player_manager.SetPlayerClass(ply, "player_ghost")
+	ply:SetPlayerClass("player_ghost")
 end
 
 function GM:PlayerSpawn(ply)
 	ply:UnSpectate()
 
 	player_manager.OnPlayerSpawn(ply, transition)
-	player_manager.RunClass(ply, "Spawn")
+	ply:RunPlayerClass("Spawn")
 
 	ply:CheckModel()
 
@@ -16,13 +15,12 @@ function GM:PlayerSpawn(ply)
 end
 
 function GM:PlayerSetModel(ply)
-	player_manager.RunClass(ply, "SetModel")
+	ply:RunPlayerClass("SetModel")
 end
 
 function GM:PlayerLoadout(ply)
 	ply:RemoveAllAmmo()
-
-	player_manager.RunClass(ply, "Loadout")
+	ply:RunPlayerClass("Loadout")
 end
 
 function GM:PlayerDeathThink(ply)
@@ -38,7 +36,7 @@ function GM:PlayerDeathThink(ply)
 		local pos = ply:GetPos()
 		local ang = ply:EyeAngles()
 
-		player_manager.SetPlayerClass(ply, "player_ghost")
+		ply:SetPlayerClass("player_ghost")
 
 		ply:Spawn()
 		ply:SetPos(pos + Vector(0, 0, 64))
@@ -62,7 +60,7 @@ function GM:SavePlayer(ply)
 	end
 
 	self.PlayerCache[ply:SteamID64()] = {
-		Class = player_manager.GetPlayerClass(ply),
+		Class = ply:GetPlayerClass(),
 		Items = items,
 
 		Pos = ply:GetPos(),
@@ -80,7 +78,7 @@ function GM:RestorePlayer(ply)
 		return
 	end
 
-	player_manager.SetPlayerClass(ply, data.Class)
+	pyl:SetPlayerClass(data.Class)
 
 	for _, item in ipairs(data.Items) do
 		item:SetInventory(ply)
