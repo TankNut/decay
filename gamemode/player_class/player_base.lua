@@ -6,6 +6,7 @@ local PLAYER = {}
 PLAYER.Team             = TEAM_UNASSIGNED
 
 PLAYER.Weapons          = {
+	"decay_hands",
 	"weapon_physgun",
 	"gmod_tool"
 }

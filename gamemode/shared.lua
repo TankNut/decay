@@ -54,8 +54,34 @@ function GM:ShouldCollide(a, b)
 	return true
 end
 
-if CLIENT then
-	function GM:InitPostEntity()
-		_G.lp = LocalPlayer()
+function GM:OnEntityCreated(ent)
+	timer.Simple(0, function()
+		if not IsValid(ent) then
+			return
+		end
+
+		self:SetupEntity(ent, ent:GetClass())
+	end)
+end
+
+function GM:SetupEntity(ent, class)
+	if ent:GetClass() == "prop_ragdoll" then
+		ent:SetCollisionGroup(COLLISION_GROUP_WORLD)
+	elseif class == "env_ragdoll_boogie" then
+		ent:Remove()
+	end
+end
+
+function GM:PlayerButtonDown(ply, button)
+	if button == KEY_B then
+		local weapon = ply:GetActiveWeapon()
+
+		if IsValid(weapon) and weapon.ToggleHolster then
+			weapon:ToggleHolster()
+		end
+	end
+
+	if SERVER then
+		numpad.Activate(ply, button)
 	end
 end

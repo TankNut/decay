@@ -116,3 +116,8 @@ function GM:OnPlayerPhysicsDrop(ply, ent, thrown)
 	ply.DroppedPhysicsFrame = FrameNumber()
 	ply:SetHeldEntity(NULL)
 end
+
+-- Handled through decay_hands
+function GM:AllowPlayerPickup(ply, ent)
+	return false
+end
