@@ -42,6 +42,7 @@ function PLAYER:Init()
 end
 
 function PLAYER:SetupDataTables()
+	self.Player:NetworkVar("Entity", "HeldEntity")
 end
 
 if CLIENT then

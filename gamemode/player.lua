@@ -107,3 +107,12 @@ gameevent.Listen("player_activate")
 function GM:player_activate(data)
 	self:RestorePlayer(Player(data.userid))
 end
+
+function GM:OnPlayerPhysicsPickup(ply, ent)
+	ply:SetHeldEntity(ent)
+end
+
+function GM:OnPlayerPhysicsDrop(ply, ent, thrown)
+	ply.DroppedPhysicsFrame = FrameNumber()
+	ply:SetHeldEntity(NULL)
+end
