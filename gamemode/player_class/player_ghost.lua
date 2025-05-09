@@ -76,6 +76,10 @@ if CLIENT then
 	})
 
 	function PLAYER:PrePlayerDraw(flags)
+		if player_manager.GetPlayerClass(lp) != "player_ghost" then
+			return
+		end
+
 		local ply = self.Player
 
 		ply:SetRenderAngles(ply:EyeAngles() + Angle(30, 0, 0))
