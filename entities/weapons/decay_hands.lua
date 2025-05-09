@@ -7,6 +7,9 @@ SWEP.PrintName  = "Hands"
 SWEP.ViewModel  = Model("models/weapons/c_arms.mdl")
 SWEP.WorldModel = ""
 
+SWEP.MassLimit = 125
+SWEP.SizeLimit = 80
+
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", "Holstered")
 
@@ -104,7 +107,7 @@ function SWEP:PickupEntity()
 		mass = mass + phys:GetMass()
 	end
 
-	if mass > 125 or ent:GetModelRadius() > 80 then
+	if mass > self.MassLimit or ent:GetModelRadius() > self.SizeLimit then
 		return
 	end
 
