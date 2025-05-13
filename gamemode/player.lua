@@ -1,6 +1,6 @@
 function GM:PlayerInitialSpawn(ply)
 	ply:SetCustomCollisionCheck(true)
-	ply:SetPlayerClass("player_ghost")
+	ply:SetPlayerClass(ply:IsBot() and "player_base" or "player_ghost")
 end
 
 function GM:PlayerSpawn(ply)
