@@ -23,31 +23,6 @@ function GM:PlayerLoadout(ply)
 	ply:RunPlayerClass("Loadout")
 end
 
-function GM:PlayerDeathThink(ply)
-	if ply.NextSpawnTime and ply.NextSpawnTime > CurTime() then return end
-
-	if ply:IsBot() or ply:KeyPressed(IN_ATTACK) or ply:KeyPressed(IN_ATTACK2) or ply:KeyPressed(IN_JUMP) then
-		if ply:IsGhost() then
-			ply:Spawn()
-
-			return
-		end
-
-		local pos = ply:GetPos()
-		local ang = ply:EyeAngles()
-
-		ply:SetPlayerClass("player_ghost")
-
-		ply:Spawn()
-		ply:SetPos(pos + Vector(0, 0, 64))
-		ply:SetEyeAngles(ang)
-	end
-end
-
-function GM:CanPlayerSuicide(ply)
-	return not ply:IsGhost()
-end
-
 GM.PlayerCache = GM.PlayerCache or {}
 
 function GM:SavePlayer(ply)

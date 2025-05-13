@@ -44,12 +44,17 @@ end
 
 function PLAYER:SetupDataTables()
 	self.Player:NetworkVar("Entity", "HeldEntity")
+	self.Player:NetworkVar("Entity", "Corpse")
 end
 
 if CLIENT then
 	function PLAYER:PrePlayerDraw(flags) end
 	function PLAYER:PostPlayerDraw(flags) end
 else
+	function PLAYER:Spawn()
+		self.Player:SetCorpse(NULL)
+	end
+
 	function PLAYER:SetModel()
 		local mdl = player_manager.TranslatePlayerModel(self.Player:GetInfo("cl_playermodel"))
 

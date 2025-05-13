@@ -32,6 +32,7 @@ includeShared("player_meta.lua")
 
 includeClient("cl_player.lua")
 
+includeServer("death.lua")
 includeServer("integration.lua")
 includeServer("player.lua")
 

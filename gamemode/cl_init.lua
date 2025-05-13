@@ -3,3 +3,26 @@ include("shared.lua")
 function GM:InitPostEntity()
 	_G.lp = LocalPlayer()
 end
+
+function GM:CalcView(ply, origin, angles, fov, znear, zfar)
+	local view = self.BaseClass.CalcView(self, ply, origin, angles, fov, znear, zfar)
+
+	if not ply:Alive() then
+		local corpse = ply:GetCorpse()
+
+		if IsValid(corpse) then
+			local pos = corpse:GetPos()
+
+			local tr = util.TraceLine({
+				start = pos,
+				endpos = pos - angles:Forward() * 96 + Vector(0, 0, 14),
+				filter = {ply, corpse},
+				mask = MASK_SOLID
+			})
+
+			view.origin = tr.HitPos
+		end
+	end
+
+	return view
+end
