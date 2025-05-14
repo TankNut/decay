@@ -17,7 +17,9 @@ function ENT:Initialize()
 	self:DrawShadow(false)
 	self:SetColor(Color(255, 80, 80))
 
-	if SERVER then
+	if CLIENT then
+		self:SetRenderBounds(Vector(-128, -128, -128), Vector(128, 128, 128))
+	else
 		self:PhysicsInitBox(self.Mins, self.Maxs)
 		self:SetMoveType(MOVETYPE_NONE)
 
@@ -63,9 +65,9 @@ if CLIENT then
 			light.g = color.g
 			light.b = color.b
 			light.brightness = 2
-			light.Decay = 1000
+			light.Decay = 0
 			light.Size = 128
-			light.DieTime = CurTime() + 1
+			light.DieTime = CurTime() + 0.1
 		end
 
 		local size = 100
