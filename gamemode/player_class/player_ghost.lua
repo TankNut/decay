@@ -107,8 +107,7 @@ if CLIENT then
 	end
 else
 	function PLAYER:Spawn()
-		BaseClass.Spawn(self)
-
+		-- Don't call BaseClass, we want to keep our corpse
 		self.Player:SetPos(self.Player:GetPos() + Vector(0, 0, 64))
 	end
 

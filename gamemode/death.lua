@@ -12,6 +12,7 @@ function GM:CreateCorpse(ply)
 
 	ragdoll:Spawn()
 	ragdoll:Activate()
+	ragdoll:AddEFlags(EFL_IN_SKYBOX)
 
 	local color = ply:GetPlayerColor()
 
@@ -41,7 +42,7 @@ end
 
 function GM:DoPlayerDeath(ply, attacker, dmg)
 	ply:SetCorpse(self:CreateCorpse(ply))
-	ply.NextSpawnTime = CurTime() + 2
+	ply.NextSpawnTime = CurTime() + 5
 end
 
 function GM:PlayerDeath(ply, inflictor, attacker)
@@ -49,8 +50,10 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 end
 
 function GM:PlayerDeathThink(ply)
+	local ready = not ply.NextSpawnTime or ply.NextSpawnTime <= CurTime()
+
 	if ply:IsGhost() or ply:IsBot() then
-		if not ply.NextSpawnTime or ply.NextSpawnTime <= CurTime() then
+		if ready then
 			ply:Spawn()
 		end
 
@@ -61,7 +64,9 @@ function GM:PlayerDeathThink(ply)
 
 	if IsValid(corpse) then
 		ply:SetPos(corpse:GetPos())
-	else
+	end
+
+	if not IsValid(corpse) or (ready and ply:KeyDown(IN_ATTACK)) then
 		local pos = ply:GetPos()
 		local ang = ply:EyeAngles()
 

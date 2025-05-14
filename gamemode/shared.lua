@@ -30,6 +30,7 @@ includeShared("player_class/player_ghost.lua")
 includeShared("entity_meta.lua")
 includeShared("player_meta.lua")
 
+includeClient("cl_outline.lua")
 includeClient("cl_player.lua")
 
 includeServer("death.lua")

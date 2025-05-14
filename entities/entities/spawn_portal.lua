@@ -90,7 +90,7 @@ if CLIENT then
 	end
 else
 	function ENT:StartTouch(ply)
-		if not ply:IsPlayer() or not ply:IsGhost() then
+		if not ply:IsPlayer() or not ply:IsGhost() or IsValid(ply:GetCorpse()) then
 			return
 		end
 

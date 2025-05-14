@@ -26,3 +26,11 @@ function GM:CalcView(ply, origin, angles, fov, znear, zfar)
 
 	return view
 end
+
+function GM:PreDrawOutlines()
+	local corpse = lp:GetCorpse()
+
+	if IsValid(corpse) and lp:Alive() then
+		outline.Add(corpse, Color(255, 0, 0))
+	end
+end
