@@ -27,6 +27,7 @@ end
 includeShared("player_class/player_base.lua")
 includeShared("player_class/player_ghost.lua")
 
+includeShared("binds.lua")
 includeShared("entity_meta.lua")
 includeShared("player_meta.lua")
 
@@ -70,19 +71,5 @@ function GM:SetupEntity(ent, class)
 		ent:SetCollisionGroup(COLLISION_GROUP_WORLD)
 	elseif class == "env_ragdoll_boogie" then
 		ent:Remove()
-	end
-end
-
-function GM:PlayerButtonDown(ply, button)
-	if button == KEY_B then
-		local weapon = ply:GetActiveWeapon()
-
-		if IsValid(weapon) and weapon.ToggleHolster then
-			weapon:ToggleHolster()
-		end
-	end
-
-	if SERVER then
-		numpad.Activate(ply, button)
 	end
 end
