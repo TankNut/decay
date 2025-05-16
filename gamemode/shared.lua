@@ -24,17 +24,20 @@ local function includeServer(path)
 	end
 end
 
+includeShared("binds.lua")
+
 includeShared("player_class/player_base.lua")
 includeShared("player_class/player_ghost.lua")
 
-includeShared("binds.lua")
 includeShared("entity_meta.lua")
 includeShared("player_meta.lua")
 
 includeClient("cl_outline.lua")
+includeClient("vgui/inventory.lua")
 
 includeServer("death.lua")
 includeServer("integration.lua")
+includeServer("net.lua")
 includeServer("player.lua")
 
 for _, path in ipairs(file.Find(engine.ActiveGamemode() .. "/gamemode/items/*.lua", "LUA")) do

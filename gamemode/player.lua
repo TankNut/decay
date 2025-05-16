@@ -94,3 +94,8 @@ end
 function GM:AllowPlayerPickup(ply, ent)
 	return false
 end
+
+function GM:ShowSpare1(ply)
+	net.Start("OpenInventory")
+	net.Send(ply)
+end
