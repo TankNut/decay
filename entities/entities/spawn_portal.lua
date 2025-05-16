@@ -94,7 +94,7 @@ else
 			return
 		end
 
-		player_manager.SetPlayerClass(ply, "player_base")
+		ply:SetPlayerClass("player_base")
 		ply:Spawn()
 
 		ply:ScreenFade(SCREENFADE.IN, Color(255, 0, 0), 2.5, 0)
