@@ -25,6 +25,7 @@ local function includeServer(path)
 end
 
 includeShared("binds.lua")
+includeShared("utils.lua")
 
 includeShared("player_class/player_base.lua")
 includeShared("player_class/player_ghost.lua")

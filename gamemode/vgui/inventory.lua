@@ -14,6 +14,10 @@ function GM:OpenInventory()
 			pnl:Remove()
 		end
 	end
+
+	hook.Add("PostDrawHUD", base, function()
+		draw.DrawBackgroundBlur(1, 0, 0, ScrW(), ScrH())
+	end)
 end
 
 net.Receive("OpenInventory", function()
