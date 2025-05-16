@@ -1,13 +1,16 @@
 GM.Binds = GM.Binds or {}
 
 function GM:AddBind(name, key, callback)
+	local convar = "decay_key_" .. name
+
 	self.Binds[name] = {
 		Key = key,
+		Convar = convar,
 		Callback = callback
 	}
 
 	if CLIENT then
-		CreateClientConVar("decay_key_" .. name, key, true, true)
+		CreateClientConVar(convar, key, true, true)
 	end
 end
 
@@ -27,7 +30,7 @@ end)
 
 function GM:PlayerButtonDown(ply, key)
 	for _, bind in pairs(self.Binds) do
-		if key == bind.Key and bind.Callback(ply, true) then
+		if key == ply:GetInfoNum(bind.Convar, bind.Key) and bind.Callback(ply, true) then
 			return
 		end
 	end
@@ -39,7 +42,7 @@ end
 
 function GM:PlayerButtonUp(ply, key)
 	for _, bind in pairs(self.Binds) do
-		if key == bind.Key and bind.Callback(ply, false) then
+		if key == ply:GetInfoNum(bind.Convar, bind.Key) and bind.Callback(ply, false) then
 			return
 		end
 	end
