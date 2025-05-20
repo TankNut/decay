@@ -73,7 +73,5 @@ end
 function GM:SetupEntity(ent, class)
 	if ent:GetClass() == "prop_ragdoll" then
 		ent:SetCollisionGroup(COLLISION_GROUP_WORLD)
-	elseif class == "env_ragdoll_boogie" then
-		ent:Remove()
 	end
 end

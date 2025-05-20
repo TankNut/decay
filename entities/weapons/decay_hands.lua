@@ -111,15 +111,7 @@ function SWEP:PickupEntity()
 		return
 	end
 
-	timer.Simple(0, function()
-		if not IsValid(ply) or not IsValid(ent) then
-			return
-		end
-
-		ply:PickupObject(ent)
-	end)
-
-	ply:ConCommand("-attack2")
+	ply:PickupObject(ent)
 end
 
 function SWEP:Think()
