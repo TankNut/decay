@@ -77,3 +77,11 @@ function GM:SetupEntity(ent, class)
 		ent:SetCollisionGroup(COLLISION_GROUP_WORLD)
 	end
 end
+
+function GM:OnReloaded()
+	if SERVER then
+		for _, ply in player.Iterator() do
+			ply.m_CurrentPlayerClass = nil
+		end
+	end
+end
