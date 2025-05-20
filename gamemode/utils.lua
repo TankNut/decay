@@ -17,4 +17,28 @@ if CLIENT then
 
 		DisableClipping(was)
 	end
+
+	function DecayScale(w)
+		return math.max(math.Round(w * (ScrW() / 1920)), 1)
+	end
+
+	local PANEL = FindMetaTable("Panel")
+
+	function PANEL:SetCloseOnPause(bool)
+		if bool then
+			hook.Add("OnPauseMenuShow", self, function()
+				if vgui.FocusedHasParent(self) then
+					if isfunction(self.Close) then
+						self:Close()
+					else
+						self:Remove()
+					end
+
+					return false
+				end
+			end)
+		else
+			hook.Remove("OnPauseMenuShow", self)
+		end
+	end
 end

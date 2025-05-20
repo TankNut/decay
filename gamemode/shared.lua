@@ -34,7 +34,9 @@ includeShared("entity_meta.lua")
 includeShared("player_meta.lua")
 
 includeClient("cl_outline.lua")
+
 includeClient("vgui/inventory.lua")
+includeClient("vgui/item_icon.lua")
 
 includeServer("death.lua")
 includeServer("integration.lua")

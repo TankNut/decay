@@ -1,7 +1,6 @@
 AddCSLuaFile()
 
-ENT.Base = "base_anim"
-ENT.Type = "anim"
+ENT.Base = "base_usable"
 
 ENT.Model = Model("models/props_lab/cactus.mdl")
 
@@ -71,32 +70,46 @@ end
 if SERVER then
 	-- Adapted from https://github.com/ValveSoftware/source-sdk-2013/blob/master/src/game/shared/basecombatweapon_shared.cpp#L982
 	function ENT:SetInventory(ent)
-		self:SetAbsVelocity(vector_origin)
+		if IsValid(ent) then
+			self:SetAbsVelocity(vector_origin)
 
-		self:SetParent(ent)
-		self:SetMoveType(MOVETYPE_NONE)
+			self:SetParent(ent)
+			self:SetMoveType(MOVETYPE_NONE)
 
-		self:AddEffects(EF_BONEMERGE)
-		self:AddSolidFlags(FSOLID_NOT_SOLID)
+			self:AddEffects(EF_BONEMERGE)
+			self:AddSolidFlags(FSOLID_NOT_SOLID)
 
-		self:SetLocalPos(vector_origin)
-		self:SetLocalAngles(angle_zero)
+			self:SetLocalPos(vector_origin)
+			self:SetLocalAngles(angle_zero)
 
-		self:SetOwner(ent)
-		self:PhysicsDestroy()
+			self:SetOwner(ent)
+			self:PhysicsDestroy()
 
-		self:SetNoDraw(true)
+			self:SetNoDraw(true)
+		else
+			self:SetParent(nil)
+
+			self:RemoveEffects(EF_BONEMERGE)
+			self:RemoveSolidFlags(FSOLID_NOT_SOLID)
+
+			self:SetOwner(NULL)
+			self:PhysicsCreate()
+
+			self:SetNoDraw(false)
+			self:PhysWake()
+		end
 	end
 
-	function ENT:ClearInventory()
-		self:SetParent(nil)
+	util.AddNetworkString("DropItem")
 
-		self:RemoveEffects(EF_BONEMERGE)
-		self:RemoveSolidFlags(FSOLID_NOT_SOLID)
+	net.Receive("DropItem", function(_, ply)
+		local ent = net.ReadEntity()
 
-		self:SetOwner(NULL)
-		self:PhysicsCreate()
+		if ent:GetParent() != ply then
+			return
+		end
 
-		self:SetNoDraw(false)
-	end
+		ent:SetInventory(NULL)
+		ent:SetPos(ply:EyePos())
+	end)
 end
