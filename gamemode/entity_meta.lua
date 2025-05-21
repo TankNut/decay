@@ -18,7 +18,7 @@ end
 function ENTITY:GetItems()
 	local tab = {}
 
-	for _, ent in ipairs(self:GetChildren()) do
+	for _, ent in SortedPairs(self:GetChildren(), true) do
 		if ent:IsItem() then
 			table.insert(tab, ent)
 		end
