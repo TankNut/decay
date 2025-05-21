@@ -1,8 +1,5 @@
 local PANEL = {}
 
-local layoutX = 6
-local layoutY = 3
-
 function PANEL:Init()
 	if IsValid(GAMEMODE.InventoryPanel) then
 		GAMEMODE.InventoryPanel:Remove()
@@ -19,12 +16,14 @@ function PANEL:Init()
 	local padding = DecayScale(2)
 	local size = DecayScale(64)
 
+	self.InventoryRows, self.InventoryColumns = lp:GetInventorySize()
+
 	self.Layout = self:Add("DIconLayout")
 	self.Layout:SetSpaceX(spacing)
 	self.Layout:SetSpaceY(spacing)
-	self.Layout:SetSize(size * layoutX + spacing * (layoutX - 1), size * layoutY + spacing)
+	self.Layout:SetSize(size * self.InventoryRows + spacing * (self.InventoryRows - 1), size * self.InventoryColumns + spacing)
 
-	for i = 1, layoutX * layoutY do
+	for i = 1, self.InventoryRows * self.InventoryColumns do
 		local panel = self.Layout:Add("DPanel")
 		panel:SetSize(size, size)
 		panel:DockPadding(padding, padding, padding, padding)
@@ -64,7 +63,7 @@ function PANEL:FillSlots()
 
 	local items = lp:GetItems()
 
-	for i = 1, layoutX * layoutY do
+	for i = 1, self.InventoryRows * self.InventoryColumns do
 		local item = items[i]
 
 		if item then
@@ -112,6 +111,12 @@ end
 
 function PANEL:OnKeyCodePressed(key)
 	if input.LookupKeyBinding(key) == "gm_showspare1" then
+		self:Remove()
+	end
+end
+
+function PANEL:Think()
+	if not lp:Alive() then
 		self:Remove()
 	end
 end

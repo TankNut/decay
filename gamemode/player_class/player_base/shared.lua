@@ -28,6 +28,9 @@ PLAYER.RunSpeed         = 400
 
 PLAYER.DrawShadow       = true
 
+PLAYER.InventoryRows    = 6
+PLAYER.InventoryColumns = 3
+
 include("use.lua")
 
 function PLAYER:Init()
@@ -51,6 +54,10 @@ function PLAYER:SetupDataTables()
 	self.Player:NetworkVar("Entity", "UseTarget")
 	self.Player:NetworkVar("Float", "StartUseTime")
 	self.Player:NetworkVar("Float", "EndUseTime")
+end
+
+function PLAYER:GetInventorySize()
+	return self.InventoryRows, self.InventoryColumns
 end
 
 if CLIENT then

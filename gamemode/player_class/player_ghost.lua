@@ -16,6 +16,9 @@ PLAYER.RunSpeed         = 200
 
 PLAYER.DrawShadow       = false
 
+PLAYER.InventoryRows    = 0
+PLAYER.InventoryColumns = 0
+
 function PLAYER:Init()
 	BaseClass.Init(self)
 
