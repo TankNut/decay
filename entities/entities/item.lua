@@ -1,10 +1,15 @@
+DEFINE_BASECLASS("base_usable")
 AddCSLuaFile()
 
 ENT.Base = "base_usable"
 
 ENT.Model = Model("models/props_lab/cactus.mdl")
 
+ENT.UseTime = 1
+
 function ENT:Initialize()
+	BaseClass.Initialize(self)
+
 	self:SetModel(self.Model)
 	self:PhysicsCreate()
 end
@@ -68,6 +73,17 @@ function ENT:OnRemove()
 end
 
 if SERVER then
+	function ENT:InventoryUse(ply)
+	end
+
+	function ENT:CheckUse(ply)
+		return not IsValid(self:GetParent())
+	end
+
+	function ENT:LongUse(ply)
+		self:SetInventory(ply)
+	end
+
 	-- Adapted from https://github.com/ValveSoftware/source-sdk-2013/blob/master/src/game/shared/basecombatweapon_shared.cpp#L982
 	function ENT:SetInventory(ent)
 		if IsValid(ent) then

@@ -27,13 +27,14 @@ end
 includeShared("binds.lua")
 includeShared("utils.lua")
 
-includeShared("player_class/player_base.lua")
+includeShared("player_class/player_base/shared.lua")
 includeShared("player_class/player_ghost.lua")
 
 includeShared("entity_meta.lua")
 includeShared("player_meta.lua")
 
 includeClient("cl_outline.lua")
+Circles = includeClient("cl_circles.lua")
 
 includeClient("vgui/inventory.lua")
 includeClient("vgui/item_icon.lua")

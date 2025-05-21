@@ -1,7 +1,7 @@
 AddCSLuaFile()
 DEFINE_BASECLASS("player_default")
 
-local PLAYER = {}
+_G.PLAYER = {}
 
 PLAYER.Team             = TEAM_UNASSIGNED
 
@@ -28,6 +28,8 @@ PLAYER.RunSpeed         = 400
 
 PLAYER.DrawShadow       = true
 
+include("use.lua")
+
 function PLAYER:Init()
 	if SERVER then
 		self.Player:SetTeam(self.Team)
@@ -45,12 +47,24 @@ end
 function PLAYER:SetupDataTables()
 	self.Player:NetworkVar("Entity", "HeldEntity")
 	self.Player:NetworkVar("Entity", "Corpse")
+
+	self.Player:NetworkVar("Entity", "UseTarget")
+	self.Player:NetworkVar("Float", "StartUseTime")
+	self.Player:NetworkVar("Float", "EndUseTime")
 end
 
 if CLIENT then
+	function PLAYER:HUDPaint()
+		self:DrawUseHUD()
+	end
+
 	function PLAYER:PrePlayerDraw(flags) end
 	function PLAYER:PostPlayerDraw(flags) end
 else
+	function PLAYER:Think()
+		self:CheckEntityUse()
+	end
+
 	function PLAYER:Spawn()
 		self.Player:SetCorpse(NULL)
 	end
@@ -78,3 +92,4 @@ else
 end
 
 player_manager.RegisterClass("player_base", PLAYER, "player_default")
+_G.PLAYER = nil

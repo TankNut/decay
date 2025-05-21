@@ -4,6 +4,10 @@ function GM:InitPostEntity()
 	_G.lp = LocalPlayer()
 end
 
+function GM:HUDPaint()
+	lp:RunPlayerClass("HUDPaint")
+end
+
 function GM:CalcView(ply, origin, angles, fov, znear, zfar)
 	local view = self.BaseClass.CalcView(self, ply, origin, angles, fov, znear, zfar)
 
@@ -36,9 +40,9 @@ function GM:PreDrawOutlines()
 end
 
 function GM:PrePlayerDraw(ply, flags)
-	return player_manager.RunClass(ply, "PrePlayerDraw", flags)
+	return ply:RunPlayerClass("PrePlayerDraw", flags)
 end
 
 function GM:PostPlayerDraw(ply, flags)
-	return player_manager.RunClass(ply, "PostPlayerDraw", flags)
+	return ply:RunPlayerClass("PostPlayerDraw", flags)
 end

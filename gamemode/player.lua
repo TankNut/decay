@@ -23,6 +23,10 @@ function GM:PlayerLoadout(ply)
 	ply:RunPlayerClass("Loadout")
 end
 
+function GM:PlayerPostThink(ply)
+	ply:RunPlayerClass("Think")
+end
+
 GM.PlayerCache = GM.PlayerCache or {}
 
 function GM:SavePlayer(ply)
