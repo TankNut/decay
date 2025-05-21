@@ -42,7 +42,7 @@ end
 
 function GM:DoPlayerDeath(ply, attacker, dmg)
 	ply:SetCorpse(self:CreateCorpse(ply))
-	ply.NextSpawnTime = CurTime() + 5
+	ply.NextSpawnTime = CurTime() + 2
 end
 
 function GM:PlayerDeath(ply, inflictor, attacker)
