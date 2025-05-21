@@ -11,6 +11,8 @@ function PANEL:LayoutEntity(ent)
 
 	self:SetLookAt(pos)
 	self:SetCamPos(pos + Vector(1, 1, 0.5) * ent:GetModelRadius() * 2)
+
+	self:SetColor(ent:GetColor())
 end
 
 function PANEL:PreDrawModel(ent)
