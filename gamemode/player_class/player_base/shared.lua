@@ -57,7 +57,9 @@ function PLAYER:SetupDataTables()
 end
 
 function PLAYER:GetInventorySize()
-	return self.InventoryRows, self.InventoryColumns
+	if self.InventoryRows > 0 and self.InventoryColumns > 0 then
+		return self.InventoryRows, self.InventoryColumns
+	end
 end
 
 if CLIENT then
@@ -70,6 +72,21 @@ if CLIENT then
 else
 	function PLAYER:Think()
 		self:CheckEntityUse()
+	end
+
+	function PLAYER:Spare1()
+		local ply = self.Player
+
+		if ply:HasInventory() then
+			net.Start("OpenInventory")
+			net.Send(ply)
+		else
+			-- Frighten
+		end
+	end
+
+	function PLAYER:Spare2()
+		-- Drop weapon
 	end
 
 	function PLAYER:Spawn()
