@@ -1,7 +1,6 @@
 AddCSLuaFile()
 
-ENT.Base = "base_anim"
-ENT.Type = "anim"
+ENT.Base = "base_decay"
 
 ENT.UseTime = 1
 

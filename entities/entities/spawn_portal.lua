@@ -1,11 +1,8 @@
 AddCSLuaFile()
 
-ENT.Base = "base_anim"
-ENT.Type = "anim"
+ENT.Base = "base_decay"
 
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
-
-ENT.Spawnable = true
 
 ENT.Model = Model("models/effects/intro_vortshield.mdl")
 
@@ -27,6 +24,16 @@ function ENT:Initialize()
 	end
 
 	self:SetCollisionGroup(COLLISION_GROUP_WORLD)
+end
+
+function ENT:SetupDataTables()
+	self:NetworkVar("Int", "ClassID")
+end
+
+function ENT:GetPlayerClass()
+	local id = self:GetClassID()
+
+	return id == 0 and "" or util.NetworkIDToString(id)
 end
 
 if CLIENT then
@@ -89,12 +96,26 @@ if CLIENT then
 		render.MaterialOverride()
 	end
 else
+	function ENT:SetupMapEntity(class)
+		self:SetPlayerClass(class)
+	end
+
+	function ENT:SetPlayerClass(class)
+		self:SetClassID(assert(util.NetworkStringToID(class), "Attempt to set unknown player class: " .. class))
+	end
+
 	function ENT:StartTouch(ply)
+		local class = self:GetPlayerClass()
+
+		if class == "" then
+			return -- We don't have anything to change the player to
+		end
+
 		if not ply:IsPlayer() or not ply:IsGhost() or IsValid(ply:GetCorpse()) then
 			return
 		end
 
-		ply:SetPlayerClass("player_base")
+		ply:SetPlayerClass(self:GetPlayerClass())
 		ply:Spawn()
 
 		ply:ScreenFade(SCREENFADE.IN, Color(255, 0, 0), 2.5, 0)

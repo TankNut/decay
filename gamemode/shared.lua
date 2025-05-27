@@ -24,6 +24,8 @@ local function includeServer(path)
 	end
 end
 
+GM.RootFolder = engine.ActiveGamemode() .. "/gamemode"
+
 includeShared("binds.lua")
 includeShared("utils.lua")
 
@@ -36,6 +38,8 @@ includeShared("player_class/player_ghost.lua")
 includeShared("entity_meta.lua")
 includeShared("player_meta.lua")
 
+includeShared("map.lua")
+
 includeClient("vgui/inventory.lua")
 includeClient("vgui/item_icon.lua")
 
@@ -44,8 +48,14 @@ includeServer("integration.lua")
 includeServer("net.lua")
 includeServer("player.lua")
 
-for _, path in ipairs(file.Find(engine.ActiveGamemode() .. "/gamemode/items/*.lua", "LUA")) do
+for _, path in ipairs(file.Find(GM.RootFolder .. "/items/*.lua", "LUA")) do
 	includeShared("items/" .. path)
+end
+
+local mapFile = GM.RootFolder .. "/maps/" .. game.GetMap() .. ".lua"
+
+if file.Exists(mapFile, "LUA") then
+	includeShared(mapFile)
 end
 
 function GM:ShouldCollide(a, b)
@@ -85,4 +95,12 @@ function GM:OnReloaded()
 			ply.m_CurrentPlayerClass = nil
 		end
 	end
+end
+
+function GM:InitPostEntity()
+	self:LoadMapFile()
+end
+
+function GM:PostCleanupMap()
+	self:LoadMapFile()
 end
