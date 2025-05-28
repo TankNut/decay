@@ -26,6 +26,7 @@ end
 
 GM.RootFolder = engine.ActiveGamemode() .. "/gamemode"
 
+includeShared("teams.lua")
 includeShared("binds.lua")
 includeShared("utils.lua")
 
