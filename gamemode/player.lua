@@ -57,7 +57,7 @@ function GM:RestorePlayer(ply)
 		return
 	end
 
-	pyl:SetPlayerClass(data.Class)
+	ply:SetPlayerClass(data.Class)
 
 	for _, item in ipairs(data.Items) do
 		item:SetInventory(ply)
