@@ -7,9 +7,6 @@ SWEP.PrintName  = "Hands"
 SWEP.ViewModel  = Model("models/weapons/c_arms.mdl")
 SWEP.WorldModel = ""
 
-SWEP.MassLimit = 125
-SWEP.SizeLimit = 80
-
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", "Holstered")
 
@@ -68,50 +65,15 @@ function SWEP:SecondaryAttack()
 		return
 	end
 
-	self:PickupEntity()
+	if SERVER then
+		self:GetOwner():TryObjectPickup()
+	end
 end
 
 function SWEP:PushEntity()
 end
 
 function SWEP:StartSwing()
-end
-
-function SWEP:PickupEntity()
-	if CLIENT then
-		return
-	end
-
-	local ply = self:GetOwner()
-	local ent = ply:GetUseEntity()
-
-	if not IsValid(ent) or ent:GetMoveType() != MOVETYPE_VPHYSICS then
-		return
-	end
-
-	local count = ent:GetPhysicsObjectCount()
-
-	if count == 0 then
-		return
-	end
-
-	local mass = 0
-
-	for i = 0, count - 1 do
-		local phys = ent:GetPhysicsObjectNum(i)
-
-		if phys:HasGameFlag(FVPHYSICS_NO_PLAYER_PICKUP) then
-			return
-		end
-
-		mass = mass + phys:GetMass()
-	end
-
-	if mass > self.MassLimit or ent:GetModelRadius() > self.SizeLimit then
-		return
-	end
-
-	ply:PickupObject(ent)
 end
 
 function SWEP:Think()
