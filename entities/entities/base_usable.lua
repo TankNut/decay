@@ -24,8 +24,8 @@ if SERVER then
 	function ENT:ShortUse(ply)
 	end
 
-	function ENT:LongUse(ply)
-	end
+	-- function ENT:LongUse(ply)
+	-- end
 
 	function ENT:AbortUse(ply)
 	end
@@ -37,10 +37,14 @@ if SERVER then
 			return
 		end
 
-		ply:SetUseTarget(self)
-		ply:SetStartUseTime(CurTime())
-		ply:SetEndUseTime(CurTime() + self.UseTime)
+		if self.LongUse then
+			ply:SetUseTarget(self)
+			ply:SetStartUseTime(CurTime())
+			ply:SetEndUseTime(CurTime() + self.UseTime)
 
-		self:StartUse(ply)
+			self:StartUse(ply)
+		else
+			self:ShortUse(ply)
+		end
 	end
 end
