@@ -80,7 +80,7 @@ if SERVER then
 		return ply:GetInventorySlots() > 0 and not IsValid(self:GetParent())
 	end
 
-	function ENT:LongUse(ply)
+	function ENT:ShortUse(ply)
 		self:SetInventory(ply)
 	end
 
