@@ -34,7 +34,10 @@ includeClient("cl_outline.lua")
 Circles = includeClient("cl_circles.lua")
 
 includeShared("player_class/player_base/shared.lua")
+includeShared("player_class/player_humanoid.lua")
+
 includeShared("player_class/player_ghost.lua")
+includeShared("player_class/player_prole.lua")
 
 includeShared("entity_meta.lua")
 includeShared("player_meta.lua")

@@ -5,11 +5,11 @@ _G.PLAYER = {}
 
 PLAYER.Team             = TEAM_UNASSIGNED
 
-PLAYER.Weapons          = {
-	"decay_hands",
-	"weapon_physgun",
-	"gmod_tool"
-}
+PLAYER.Model            = Model("models/liver_failure/liverish/liverish.mdl")
+
+PLAYER.Weapons          = {}
+
+PLAYER.Max              = 0
 
 PLAYER.Hull             = {Vector(-16, -16, 0), Vector(16, 16, 72)}
 PLAYER.DuckHull         = {Vector(-16, -16, 0), Vector(16, 16, 36)}
@@ -28,8 +28,8 @@ PLAYER.RunSpeed         = 400
 
 PLAYER.DrawShadow       = true
 
-PLAYER.InventoryRows    = 6
-PLAYER.InventoryColumns = 3
+PLAYER.InventoryRows    = 0
+PLAYER.InventoryColumns = 0
 
 include("use.lua")
 
@@ -70,35 +70,10 @@ if CLIENT then
 	function PLAYER:PrePlayerDraw(flags) end
 	function PLAYER:PostPlayerDraw(flags) end
 else
-	function PLAYER:Think()
-		self:CheckEntityUse()
-	end
-
-	function PLAYER:Spare1()
-		local ply = self.Player
-
-		if ply:HasInventory() then
-			net.Start("OpenInventory")
-			net.Send(ply)
-		else
-			-- Frighten
-		end
-	end
-
-	function PLAYER:Spare2()
-		-- Drop weapon
-	end
-
-	function PLAYER:Spawn()
-		self.Player:SetCorpse(NULL)
-	end
+	function PLAYER:Spawn() end
 
 	function PLAYER:SetModel()
-		local mdl = player_manager.TranslatePlayerModel(self.Player:GetInfo("cl_playermodel"))
-
-		util.PrecacheModel(mdl)
-
-		self.Player:SetModel(mdl)
+		self.Player:SetModel(self.Model)
 	end
 
 	function PLAYER:Loadout()
@@ -110,6 +85,13 @@ else
 			self.Player:SelectWeapon(self.Weapons[1])
 		end
 	end
+
+	function PLAYER:Think()
+		self:CheckEntityUse()
+	end
+
+	function PLAYER:Spare1() end
+	function PLAYER:Spare2() end
 
 	function PLAYER:Death(inflictor, attacker)
 	end

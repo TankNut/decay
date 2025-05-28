@@ -53,3 +53,9 @@ function ENTITY:GetItems()
 
 	return tab
 end
+
+function ENTITY:SetBodygroupList(data)
+	for _, bodygroup in ipairs(self:GetBodyGroups()) do
+		self:SetBodygroup(bodygroup.id, math.min(data[bodygroup.name] or 0, bodygroup.num - 1))
+	end
+end

@@ -10,9 +10,11 @@ ENT.Mins = Vector(-15, -15, -15)
 ENT.Maxs = Vector(15, 15, 15)
 
 function ENT:Initialize()
+	local classTable = baseclass.Get(self:GetPlayerClass())
+
 	self:SetModel(self.Model)
 	self:DrawShadow(false)
-	self:SetColor(Color(255, 80, 80))
+	self:SetColor(team.GetColor(classTable.Team))
 
 	if CLIENT then
 		self:SetRenderBounds(Vector(-128, -128, -128), Vector(128, 128, 128))
@@ -31,9 +33,7 @@ function ENT:SetupDataTables()
 end
 
 function ENT:GetPlayerClass()
-	local id = self:GetClassID()
-
-	return id == 0 and "" or util.NetworkIDToString(id)
+	return util.NetworkIDToString(self:GetClassID())
 end
 
 if CLIENT then
@@ -107,15 +107,17 @@ else
 	function ENT:StartTouch(ply)
 		local class = self:GetPlayerClass()
 
-		if class == "" then
-			return -- We don't have anything to change the player to
-		end
-
 		if not ply:IsPlayer() or not ply:IsGhost() or IsValid(ply:GetCorpse()) then
 			return
 		end
 
-		ply:SetPlayerClass(self:GetPlayerClass())
+		local classTable = baseclass.Get(class)
+
+		if classTable.Max > 0 and team.NumPlayers(classTable.Team) >= classTable.Max then
+			return
+		end
+
+		ply:SetPlayerClass(class)
 		ply:Spawn()
 
 		ply:ScreenFade(SCREENFADE.IN, Color(255, 0, 0), 2.5, 0)

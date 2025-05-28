@@ -3,7 +3,7 @@ DEFINE_BASECLASS("player_base")
 
 local PLAYER = {}
 
-PLAYER.Weapons          = {}
+PLAYER.Model            = Model("models/Gibs/HGIBS.mdl")
 
 PLAYER.Hull             = {Vector(-8, -8, -8), Vector(8, 8, 8)}
 PLAYER.DuckHull         = {Vector(-8, -8, -8), Vector(8, 8, 8)}
@@ -110,14 +110,9 @@ if CLIENT then
 	end
 else
 	function PLAYER:Spawn()
-		-- Don't call BaseClass, we want to keep our corpse
+		BaseClass.Spawn(self)
+
 		self.Player:SetPos(self.Player:GetPos() + Vector(0, 0, 64))
-	end
-
-	local ghostModel = Model("models/Gibs/HGIBS.mdl")
-
-	function PLAYER:SetModel()
-		self.Player:SetModel(ghostModel)
 	end
 end
 

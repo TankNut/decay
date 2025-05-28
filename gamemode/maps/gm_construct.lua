@@ -1,3 +1,3 @@
 GM.MapEntities = {
-	{"spawn_portal", Vector(), angle_zero, "player_base"}
+	{"spawn_portal", Vector(), angle_zero, "player_prole"}
 }
