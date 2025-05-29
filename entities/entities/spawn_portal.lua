@@ -10,11 +10,9 @@ ENT.Mins = Vector(-15, -15, -15)
 ENT.Maxs = Vector(15, 15, 15)
 
 function ENT:Initialize()
-	local classTable = baseclass.Get(self:GetPlayerClass())
-
 	self:SetModel(self.Model)
 	self:DrawShadow(false)
-	self:SetColor(team.GetColor(classTable.Team))
+	self:SetColor(Color(255, 80, 80))
 
 	if CLIENT then
 		self:SetRenderBounds(Vector(-128, -128, -128), Vector(128, 128, 128))
