@@ -47,7 +47,7 @@ function PANEL:Init()
 
 	GAMEMODE.InventoryPanel = self
 
-	hook.Add("PostDrawHUD", self, function()
+	hook.Add("HUDPaintBackground", self, function()
 		draw.DrawBackgroundBlur(1, 0, 0, ScrW(), ScrH())
 	end)
 end
