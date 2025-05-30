@@ -95,10 +95,8 @@ function GM:SetupEntity(ent, class)
 end
 
 function GM:OnReloaded()
-	if SERVER then
-		for _, ply in player.Iterator() do
-			ply.m_CurrentPlayerClass = nil
-		end
+	for _, ply in player.Iterator() do
+		ply.m_CurrentPlayerClass = nil
 	end
 end
 
