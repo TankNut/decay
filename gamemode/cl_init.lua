@@ -4,8 +4,10 @@ function GM:InitPostEntity()
 	_G.lp = LocalPlayer()
 end
 
-function GM:HUDPaint()
-	lp:RunPlayerClass("HUDPaint")
+function GM:NetworkEntityCreated(ent)
+	if ent == lp then
+		lp:RunPlayerClass("SetHull")
+	end
 end
 
 function GM:CalcView(ply, origin, angles, fov, znear, zfar)

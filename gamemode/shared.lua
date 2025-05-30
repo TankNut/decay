@@ -44,6 +44,7 @@ includeShared("player_meta.lua")
 
 includeShared("map.lua")
 
+includeClient("hud.lua")
 includeClient("vgui/inventory.lua")
 includeClient("vgui/item_icon.lua")
 
