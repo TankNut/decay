@@ -1,14 +1,14 @@
 function GM:PlayerInitialSpawn(ply)
 	ply:SetCustomCollisionCheck(true)
-	ply:SetPlayerClass(ply:IsBot() and "player_base" or "player_ghost")
+	ply:SetPlayerClass(ply:IsBot() and "player_prole" or "player_ghost")
 end
 
 function GM:PlayerSpawn(ply)
 	ply:UnSpectate()
 
 	player_manager.OnPlayerSpawn(ply, transition)
-	ply:RunPlayerClass("Spawn")
 
+	ply:RunPlayerClass("Spawn")
 	ply:CheckModel()
 
 	hook.Run("PlayerLoadout", ply)

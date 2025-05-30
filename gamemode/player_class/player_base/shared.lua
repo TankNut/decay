@@ -39,12 +39,7 @@ function PLAYER:Init()
 	end
 
 	self.Player:DrawShadow(self.DrawShadow)
-
-	self.Player:SetHull(unpack(self.Hull))
-	self.Player:SetHullDuck(unpack(self.DuckHull))
-
-	self.Player:SetViewOffset(self.ViewOffset)
-	self.Player:SetViewOffsetDucked(self.ViewOffsetDucked)
+	self:SetHull()
 end
 
 function PLAYER:SetupDataTables()
@@ -54,6 +49,14 @@ function PLAYER:SetupDataTables()
 	self.Player:NetworkVar("Entity", "UseTarget")
 	self.Player:NetworkVar("Float", "StartUseTime")
 	self.Player:NetworkVar("Float", "EndUseTime")
+end
+
+function PLAYER:SetHull()
+	self.Player:SetHull(unpack(self.Hull))
+	self.Player:SetHullDuck(unpack(self.DuckHull))
+
+	self.Player:SetViewOffset(self.ViewOffset)
+	self.Player:SetViewOffsetDucked(self.ViewOffsetDucked)
 end
 
 function PLAYER:GetInventorySize()
