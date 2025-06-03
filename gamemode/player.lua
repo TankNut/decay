@@ -1,5 +1,7 @@
 function GM:PlayerInitialSpawn(ply)
 	ply:SetCustomCollisionCheck(true)
+	ply:SetNoCollideWithTeammates(false)
+
 	ply:SetPlayerClass(ply:IsBot() and "player_prole" or "player_ghost")
 end
 
