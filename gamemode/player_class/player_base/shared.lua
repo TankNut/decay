@@ -54,6 +54,9 @@ function PLAYER:SetupDataTables()
 	self.Player:NetworkVar("Entity", "UseTarget")
 	self.Player:NetworkVar("Float", "StartUseTime")
 	self.Player:NetworkVar("Float", "EndUseTime")
+
+	self.Player:NetworkVar("Vector", "ChatColor")
+	self.Player:NetworkVar("String", "ChatFont")
 end
 
 function PLAYER:SetHull()
@@ -71,6 +74,20 @@ function PLAYER:GetInventorySize()
 end
 
 if CLIENT then
+	function PLAYER:CreateChatBubble()
+		local ply = self.Player
+
+		if ply.ChatBubble then
+			ply.ChatBubble:Remove()
+		end
+
+		local bubble = GAMEMODE:CreateBubble()
+		bubble:SetEntity(ply)
+		bubble:SetFont(self.ChatFont)
+
+		ply.ChatBubble = bubble
+	end
+
 	function PLAYER:HUDPaint()
 		self:DrawUseHUD()
 	end
@@ -78,7 +95,10 @@ if CLIENT then
 	function PLAYER:PrePlayerDraw(flags) end
 	function PLAYER:PostPlayerDraw(flags) end
 else
-	function PLAYER:Spawn() end
+	function PLAYER:Spawn()
+		self.Player:SetChatColor(self:GetChatColor():ToVector())
+		self.Player:SetChatFont(self:GetChatFont())
+	end
 
 	function PLAYER:SetModel()
 		self.Player:SetModel(self.Model)
@@ -101,9 +121,22 @@ else
 	function PLAYER:Spare1() end
 	function PLAYER:Spare2() end
 
+	function PLAYER:GetChatColor()
+		return color_white
+	end
+
+	function PLAYER:GetChatSound()
+		return self.ChatSound
+	end
+
+	function PLAYER:GetChatFont()
+		return self.ChatFont
+	end
+
 	function PLAYER:Death(inflictor, attacker)
 	end
 end
 
 player_manager.RegisterClass("player_base", PLAYER, "player_default")
+
 _G.PLAYER = nil

@@ -45,6 +45,8 @@ includeShared("player_meta.lua")
 includeShared("chat.lua")
 includeShared("map.lua")
 
+includeShared("chat/say.lua")
+
 includeClient("hud.lua")
 includeClient("bubble.lua")
 includeClient("vgui/inventory.lua")
