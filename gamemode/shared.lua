@@ -42,9 +42,11 @@ includeShared("player_class/player_prole.lua")
 includeShared("entity_meta.lua")
 includeShared("player_meta.lua")
 
+includeShared("chat.lua")
 includeShared("map.lua")
 
 includeClient("hud.lua")
+includeClient("bubble.lua")
 includeClient("vgui/inventory.lua")
 includeClient("vgui/item_icon.lua")
 

@@ -31,10 +31,15 @@ PLAYER.DrawShadow       = true
 PLAYER.InventoryRows    = 0
 PLAYER.InventoryColumns = 0
 
+PLAYER.ChatFont         = "SpleenChatSmall"
+PLAYER.ChatSound        = nil
+
 include("use.lua")
 
 function PLAYER:Init()
-	if SERVER then
+	if CLIENT then
+		self:CreateChatBubble()
+	else
 		self.Player:SetTeam(self.Team)
 	end
 

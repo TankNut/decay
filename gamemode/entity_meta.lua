@@ -59,3 +59,18 @@ function ENTITY:SetBodygroupList(data)
 		self:SetBodygroup(bodygroup.id, math.min(data[bodygroup.name] or 0, bodygroup.num - 1))
 	end
 end
+
+if CLIENT then
+	function ENTITY:AddChatLine(...)
+		local bubble = self.ChatBubble
+
+		if not IsValid(bubble) then
+			bubble = GAMEMODE:CreateBubble()
+			bubble:SetEntity(self)
+
+			self.ChatBubble = bubble
+		end
+
+		bubble:AddLine(...)
+	end
+end

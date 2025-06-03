@@ -114,6 +114,10 @@ else
 
 		self.Player:SetPos(self.Player:GetPos() + Vector(0, 0, 64))
 	end
+
+	function PLAYER:GetChatColor()
+		return HSVToColor(0, 0, math.Rand(0.8, 1))
+	end
 end
 
 player_manager.RegisterClass("player_ghost", PLAYER, "player_base")

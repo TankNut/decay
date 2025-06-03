@@ -48,3 +48,13 @@ end
 function GM:PostPlayerDraw(ply, flags)
 	return ply:RunPlayerClass("PostPlayerDraw", flags)
 end
+
+function GM:PostDrawTranslucentRenderables(depth, skybox, skybox3D)
+	if skybox or render.GetViewSetup().viewid != 0 then
+		return
+	end
+
+	cam.Start2D()
+		self:DrawBubbles()
+	cam.End2D()
+end
