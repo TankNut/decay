@@ -1,6 +1,6 @@
 surface.CreateFont("SpleenChatSmall", {
 	font = "Spleen 8x16",
-	size = 24,
+	size = ScreenScale(8),
 	weight = 500
 })
 
