@@ -3,6 +3,7 @@ function GM:PlayerInitialSpawn(ply)
 	ply:SetNoCollideWithTeammates(false)
 
 	ply:SetPlayerClass(ply:IsBot() and "player_prole" or "player_ghost")
+	ply:AddEFlags(EFL_IN_SKYBOX) -- Always in PVS
 end
 
 function GM:PlayerSpawn(ply)
