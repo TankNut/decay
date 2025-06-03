@@ -9,11 +9,11 @@ PLAYER.Weapons          = {
 	"gmod_tool"
 }
 
-PLAYER.Hull             = {Vector(-16, -16, 0), Vector(16, 16, 72)}
-PLAYER.DuckHull         = {Vector(-16, -16, 0), Vector(16, 16, 36)}
+PLAYER.Hull             = {Vector(-10, -10, 0), Vector(10, 10, 72)}
+PLAYER.DuckHull         = {Vector(-10, -10, 0), Vector(10, 10, 36)}
 
 PLAYER.ViewOffset       = Vector(0, 0, 64)
-PLAYER.ViewOffsetDucked = Vector(0, 0, 28)
+PLAYER.ViewOffsetDucked = Vector(0, 0, 38)
 
 PLAYER.SlowWalkSpeed    = 100
 PLAYER.WalkSpeed        = 200
