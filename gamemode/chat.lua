@@ -36,7 +36,7 @@ else
 		command = self.ChatLookup[string.lower(command)]
 
 		if not command then
-			return
+			return ""
 		end
 
 		command:Parse(ply, args)
