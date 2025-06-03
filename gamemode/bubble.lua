@@ -11,18 +11,13 @@ if not meta then
 end
 
 AccessorFunc(meta, "Entity", "Entity")
-AccessorFunc(meta, "Font", "Font")
 AccessorFunc(meta, "Pos", "Pos")
-
-AccessorFunc(meta, "Local", "Local")
 
 AccessorFunc(meta, "AutoRemove", "AutoRemove")
 
 function meta:Initialize()
 	self.Entity = false
 	self.Pos = vector_origin
-
-	self.Local = false
 
 	self.Lines = {}
 	self.Index = 1
