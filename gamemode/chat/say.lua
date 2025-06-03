@@ -4,7 +4,7 @@ CHAT.Commands = {"say"}
 
 if CLIENT then
 	function CHAT:Receive(ply, text)
-		ply:AddChatLine(text, ply:GetChatFont(), 5, 1, ply:GetChatColor():ToColor())
+		ply:AddChatLine(text, ply:GetChatFont(), 2 + #text * 0.1, 2, ply:GetChatColor():ToColor())
 	end
 else
 	function CHAT:Parse(ply, text)
