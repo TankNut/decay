@@ -153,8 +153,25 @@ function meta:Remove()
 	GAMEMODE.Bubbles[self] = nil
 end
 
+function meta:ToScreen(width, height)
+	local radius = ScreenScale(16)
+
+	if self.Entity == lp and not lp:ShouldDrawLocalPlayer() then
+		return ScrW() * 0.5, ScrH() - radius
+	end
+
+	local screen = self.Pos:ToScreen()
+	local x = screen.x
+	local y = screen.y
+
+	x = math.floor(math.Clamp(x, radius + width * 0.5, ScrW() - width * 0.5 - radius))
+	y = math.floor(math.Clamp(y, radius + height, ScrH() - radius))
+
+	return x, y
+end
+
 function meta:Draw()
-	if self:Update() or (self.Entity == lp and not lp:ShouldDrawLocalPlayer()) then
+	if self:Update() then
 		return
 	end
 
@@ -172,14 +189,7 @@ function meta:Draw()
 		height = height + lineHeight
 	end
 
-	local screen = self.Pos:ToScreen()
-	local x = screen.x
-	local y = screen.y
-
-	local radius = ScreenScale(16)
-
-	x = math.floor(math.Clamp(x, radius + width * 0.5, ScrW() - width * 0.5 - radius))
-	y = math.floor(math.Clamp(y, radius + height, ScrH() - radius))
+	local x, y = self:ToScreen(width, height)
 
 	for _, line in SortedPairs(self.Lines, true) do
 		surface.SetFont(line.Font)
